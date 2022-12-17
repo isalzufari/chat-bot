@@ -16,6 +16,10 @@ import Services from './Page/Services';
 import Contact from './Page/Contact';
 import Chat from "./Page/Chat";
 
+// Admin Page
+import Login from "./Page/Admin/Login";
+import AdminHome from "./Page/Admin/Home";
+
 function App() {
   return (
     <>
@@ -29,6 +33,10 @@ function App() {
             <Route path="services" element={<Services />} />
             <Route path="contact" element={<Contact />} />
             <Route path="chat" element={<Chat />} />
+            <Route path="admin">
+              <Route index element={<AdminHome />} />
+              <Route path="login" element={<Login />} />
+            </Route>
           </Routes>
         </div>
         <Footer />
