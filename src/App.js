@@ -19,6 +19,7 @@ import Chat from "./Page/Chat";
 // Admin Page
 import Login from "./Page/Admin/Login";
 import AdminHome from "./Page/Admin/Home";
+import Paket from "./Page/Admin/Paket";
 
 function App() {
   return (
@@ -36,6 +37,7 @@ function App() {
             <Route path="admin">
               <Route index element={<AdminHome />} />
               <Route path="login" element={<Login />} />
+              <Route path="paket" element={<Paket />} />
             </Route>
           </Routes>
         </div>

@@ -105,7 +105,7 @@ const Chat = () => {
             </div>
             <div class="input-group mb-3" style={{ padding: '0px 14px' }}>
               <input type="text" class="form-control" value={formData.send} onChange={(e) => setFormData({ ...formData, send: e.target.value })} placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="basic-addon2" />
-              <button type='button' className="btn btn-primary input-group-text" id="basic-addon2" onClick={handleSend}>Kirim</button>
+              <button type='button' className="btn btn-primary input-group-text" id="basic-addon2" onClick={handleSend} disabled={!formData.send}>Kirim</button>
             </div>
           </div>
         </div>
