@@ -113,7 +113,7 @@ exports.getChat = (req, res, next) => {
                     if (err) return res.status(500).json({
                       status: 'error',
                       message: err
-                    })
+                    });
                   });
                 } catch (error) {
                   console.log(error)

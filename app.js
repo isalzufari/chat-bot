@@ -7,6 +7,7 @@ const logger = require('morgan');
 const indexRouter = require('./routes/index');
 const chatRouter = require('./routes/chat');
 const reservasiRouter = require('./routes/reservasi');
+const paketRouter = require('./routes/paket');
 
 const app = express();
 const cors = require('cors');
@@ -21,11 +22,18 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use(cors())
+const corsOptions = {
+  origin: '*',
+  credentials: true,
+  optionSuccessStatus: 200,
+};
+
+app.use(cors());
 
 app.use('/', indexRouter);
 app.use('/chat', chatRouter);
 app.use('/reserved', reservasiRouter);
+app.use('/paket', paketRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
