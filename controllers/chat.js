@@ -23,7 +23,7 @@ exports.getChat = (req, res, next) => {
       data: `Hallo! Selamat datang di Muara Ciante Adventure, saya chat bot yang akan membantu kalian dalam proses reservasi! /pesan (menampilkan pilihan menu) /reservasi (memesan paket yang tersedia) /lihatpaket (menampilkan menu paket) /cekjadwal (cek jadwal tersedia)`
     });
   } else if (send === "/lihatpaket") {
-    conn.query("SELECT * FROM paket INNER JOIN fasilitas ON paket.id_fasilitas = fasilitas.id", (err, data) => {
+    conn.query("SELECT paket.id, paket.nama, paket.jarak, paket.waktu, paket.tarif, fasilitas.fasilitas  FROM paket INNER JOIN fasilitas ON paket.id_fasilitas = fasilitas.id", (err, data) => {
       if (err) return res.status(500).json({
         status: 'error',
         message: err
@@ -46,6 +46,7 @@ exports.getChat = (req, res, next) => {
       }, {})
 
       const mergedArray = Object.values(objIds);
+      console.log(mergedArray);
 
       return res.status(200).json({
         status: "success",
@@ -131,7 +132,7 @@ exports.getChat = (req, res, next) => {
                   })
                 });
 
-                let review = `Review Pesanan Anda\nAtas nama: ${nama_reservasi}\nAlamat: ${alamat_reservasi}\nPaket: ${nama_paket} \nJarak: ${jarak_paket}Km - ${Math.floor(waktu_paket / 3600)} jam\n Tarif: Rp ${tarif_paket} Perorang \nPeserta: ${users.length} orang\n Total Pembayaran: Rp ${tarif_paket * users.length} \nPembayaran dikirm ke rekening BCA a.n dnaowdawd 231231. \n Segera transfer dan kirim bukti foto pembayaran untuk menyelesaikan reservasi anda Atau batalkan reservasi dengan input /batalreservasi Jika mengirim bukti pembayaram, Maka bot akan mengirim notifikasi reservasi akan segara diproses`;
+                let review = `Review Pesanan Anda\nAtas nama: ${nama_reservasi}\nAlamat: ${alamat_reservasi}\nPaket: ${nama_paket} \nJarak: ${jarak_paket}Km - ${Math.floor(waktu_paket / 60)} jam\n Tarif: Rp ${tarif_paket} Perorang \nPeserta: ${users.length} orang\n Total Pembayaran: Rp ${tarif_paket * users.length} \nPembayaran dikirm ke rekening BCA a.n dnaowdawd 231231. \n Segera transfer dan kirim bukti foto pembayaran untuk menyelesaikan reservasi anda Atau batalkan reservasi dengan input /batalreservasi Jika mengirim bukti pembayaram, Maka bot akan mengirim notifikasi reservasi akan segara diproses`;
 
                 return res.status(200).json({
                   status: "success",
