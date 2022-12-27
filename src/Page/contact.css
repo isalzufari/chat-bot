@@ -1,0 +1,38 @@
+h1{
+    text-align: center;
+    padding-bottom: 0;
+}
+
+p{
+    text-align: center;
+    justify-content: space-between;
+}
+
+.container-contact{
+    position:relative;
+    text-align:left;
+    width:1000px;
+    height:400px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    padding-left: 12%;
+}
+
+.gmap_canvas {
+    overflow:hidden;
+    background:none;
+    width:1000px;
+    height:400px;
+}
+
+.gmap_iframe {
+    width:620px;
+    height:300px;
+    padding-bottom: 0;
+    padding-top:0;
+}
+
+.icon-content svg{
+    font-size: 2rem;
+}
+

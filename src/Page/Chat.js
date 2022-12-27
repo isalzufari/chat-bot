@@ -77,7 +77,12 @@ const Chat = () => {
                                   <ul>
                                     <li>Nama: {paket.nama}</li>
                                     <li>Jarak : {paket.jarak} Km - {convertMinutesToHours(paket.waktu)} Jam</li>
-                                    <li>Fasilitas: {paket.nama}</li>
+                                    <li>Fasilitas:</li>
+                                    {Array.isArray(paket.fasilitas) &&
+                                      paket.fasilitas.map((fasilitas, key) => (
+                                        <li>{key + 1}. {fasilitas}</li>
+                                      ))
+                                    }
                                     <li>Tarif: {paket.tarif}</li>
                                   </ul>
                                 </>

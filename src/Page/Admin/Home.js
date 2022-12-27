@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { toRupiah } from '../../Utils/utils'
+import { Link } from 'react-router-dom'
 
 const Home = () => {
   const [reserved, setReserved] = useState([])
@@ -124,6 +125,7 @@ const Home = () => {
           <div className="card">
             <div className="card-body">
               <h5>Paket</h5>
+              <Link to="paket">Tambah</Link>
               <div className="table-responsive">
                 <table class="table table-hover">
                   <thead>

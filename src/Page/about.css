@@ -1,0 +1,28 @@
+.section-title h1{
+    padding-bottom: 20px;
+    color: #000;
+}
+
+.section-title h2{
+    padding-bottom: 10px;
+}
+
+.section-title p{
+    font-size: 25px;
+}
+
+.main-btn{
+    -webkit-box-shadow: none;
+      -moz-box-shadow: none;
+      box-shadow: none;
+    display: inline-block;
+    margin: 10px 15px 0;
+    box-shadow: cadetblue;
+    font-size: 15px;
+    background-color: #000080;
+    color: #fff;
+    border-color: #000; 
+    padding-top: 1px;
+    text-decoration: underline;
+    text-align: center;
+}
