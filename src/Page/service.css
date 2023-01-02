@@ -105,6 +105,6 @@ p{
     color: #fff; 
 }
 
-col svg {
-    text-align: center;
+svg {
+    font-size: 42px;
 }
