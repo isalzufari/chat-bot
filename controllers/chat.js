@@ -1,7 +1,7 @@
 // import conn from "../config/db.js";
 const conn = require("../config/db")
 
-exports.getChat = (req, res, next) => {
+exports.getChat = (req, res) => {
   const send = req.body.send;
   // GLOBAL
   globalThis.id_reservasi;
@@ -53,13 +53,29 @@ exports.getChat = (req, res, next) => {
         data: mergedArray
       });
     })
+  } else if (send.includes("/cekjadwal")) {
+    if (send.includes("/cekjadwal#")) {
+      const data = send.split("#");
+      const jadwal = data[1];
+      const id_paket = data[1].split(".")[0];
+      console.log(jadwal);
+      conn.query("SELECT * FROM jadwal WHERE id_paket = ?", [id_paket], (err, data) => {
+        if (err) return res.status(500).json({
+          status: 'error',
+          message: err
+        });
 
-  } else if (send === "/cekjadwal") {
-    return res.status(200).json({
-      status: "success",
-      data: `Silahkan input jadwal manual dengan format: yyyy-mm-dd-hh:mm WIB Contoh: 2022-06-21-8.00 WIB Jika waktu tidak tersedia maka bot akan mengirmkan notifikasi waktu tidak tersedia Jika waktu tersedia maka bot akan mengirmkan notifikasi waktu tersedia`
-    });
-
+        return res.status(200).json({
+          status: "success",
+          data: data
+        });
+      });
+    } else {
+      return res.status(200).json({
+        status: "success",
+        data: `Silahkan cek jadwal dengan format: /cekjadwal#kodepaket.namapaket Contoh: /cekjadwal#1.Cihuy`
+      });
+    };
   } else if (send.includes("/reservasi")) {
     const data = send.split("#");
     const reserved = data[1];
@@ -239,11 +255,9 @@ exports.getChat = (req, res, next) => {
     //   data: `Reservasi anda berhasil dibatalkan! Selamat datang di Muara Ciante Adventure, saya chat bot yang akan membantu kalian dalam proses reservasi! /start (menampilkan pilihan menu) /reservasi (memesan paket yang tersedia) /lihatpaket(menampilkan menu paket) /cekjadwal (cek jadwal tersedia)`
     // });
   } else {
-    // "SELECT * FROM chat WHERE send LIKE CONCAT('%', ?, '%') ",
-    console.log(send);
     conn.query(
       "SELECT * FROM chat WHERE send LIKE CONCAT('%', ?, '%') ",
-      [send], (err, data, fields) => {
+      [send], (err, data) => {
         if (err) return res.status(500).json({
           status: 'error',
           message: err
