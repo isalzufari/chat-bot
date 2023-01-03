@@ -3,6 +3,14 @@ const conn = require("../config/db");
 const isBase64 = require("is-base64");
 const base64Img = require("base64-img");
 
+const toRupiah = (number) => {
+  const convert = new Intl.NumberFormat("id-ID", {
+    style: "decimal",
+    currency: "IDR"
+  }).format(number)
+  return `Rp ${convert}`
+}
+
 exports.getChat = (req, res) => {
   const send = req.body.send;
   // GLOBAL
@@ -151,7 +159,7 @@ exports.getChat = (req, res) => {
                   })
                 });
 
-                let review = `Review Pesanan Anda\nAtas nama: ${nama_reservasi}\nAlamat: ${alamat_reservasi}\nPaket: ${nama_paket} \nJarak: ${jarak_paket}Km - ${Math.floor(waktu_paket / 60)} jam\n Tarif: Rp ${tarif_paket} Perorang \nPeserta: ${users.length} orang\n Total Pembayaran: Rp ${tarif_paket * users.length} \nPembayaran dikirm ke rekening BCA a.n dnaowdawd 231231. \n Segera transfer dan kirim bukti foto pembayaran untuk menyelesaikan reservasi anda Atau batalkan reservasi dengan input /batalreservasi Jika mengirim bukti pembayaram, Maka bot akan mengirim notifikasi reservasi akan segara diproses`;
+                let review = `Review Pesanan Anda\nAtas nama: ${nama_reservasi}\nAlamat: ${alamat_reservasi}\nPaket: ${nama_paket} \nJarak: ${jarak_paket}Km - ${Math.floor(waktu_paket / 60)} jam\n Tarif: ${toRupiah(tarif_paket)} Perorang \nPeserta: ${users.length} orang\n Total Pembayaran: ${toRupiah(tarif_paket * users.length)} \nPembayaran dikirm ke rekening BCA a.n Sasasa 3267012. \n Segera transfer dan kirim bukti foto pembayaran untuk menyelesaikan reservasi anda Atau batalkan reservasi dengan input /batalreservasi Jika mengirim bukti pembayaram, Maka tidak bisa membatalkan reservasi dan bot akan mengirim notifikasi reservasi akan segara diproses`;
 
                 return res.status(200).json({
                   status: "success",
@@ -305,7 +313,7 @@ exports.getChat = (req, res) => {
       const filename = filepath.split("\\").pop().split("/").pop();
 
       try {
-        conn.query("UPDATE reservasi SET bukti_pembayaran = ? WHERE id = ?", [filename, 33], (err, data) => {
+        conn.query("UPDATE reservasi SET bukti_pembayaran = ? WHERE id = ?", [filename, id_reservasi], (err, data) => {
           if (err) return res.status(500).json({
             status: 'error',
             message: err
