@@ -84,7 +84,7 @@ const Home = () => {
                         <td>{val.alamat}</td>
                         <td>{toRupiah(val.total_pembayaran)}</td>
                         <td>{val.status_pembayaran > 0 ? "Sudah" : "Belum"}</td>
-                        <td><Link to={`jadwal/${val.id}`} type='button' className='btn btn-primary'>Jadwal</Link></td>
+                        <td><Link to={`reservasi/${val.id}`} type='button' className='btn btn-primary'>Detail</Link></td>
                         <td><button onClick={() => deleteUsersReserved(val.id)} type='button' className='btn btn-danger'>Hapus</button></td>
                       </tr>
                     ))}
