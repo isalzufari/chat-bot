@@ -24,7 +24,7 @@ exports.getChat = (req, res) => {
       data: `Hallo! Selamat datang di Muara Ciante Adventure, saya chat bot yang akan membantu kalian dalam proses reservasi! /pesan (menampilkan pilihan menu) /reservasi (memesan paket yang tersedia) /lihatpaket (menampilkan menu paket) /cekjadwal (cek jadwal tersedia)`
     });
   } else if (send === "/lihatpaket") {
-    conn.query("SELECT paket.id, paket.nama, paket.jarak, paket.waktu, paket.tarif, fasilitas.fasilitas  FROM paket INNER JOIN fasilitas ON paket.id_fasilitas = fasilitas.id", (err, data) => {
+    conn.query("SELECT paket.id, paket.nama, paket.jarak, paket.waktu, paket.tarif, fasilitas.fasilitas FROM paket INNER JOIN fasilitas ON paket.id_fasilitas = fasilitas.id", (err, data) => {
       if (err) return res.status(500).json({
         status: 'error',
         message: err
