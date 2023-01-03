@@ -9,12 +9,6 @@ const Paket = () => {
     }
   ]);
 
-  const [jadwal, setJadwal] = useState([
-    {
-
-    }
-  ])
-
   const [paket, setPaket] = useState({
     nama: '',
     jarak: '',
