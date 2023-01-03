@@ -1,5 +1,7 @@
 // import conn from "../config/db.js";
-const conn = require("../config/db")
+const conn = require("../config/db");
+const isBase64 = require("is-base64");
+const base64Img = require("base64-img");
 
 exports.getChat = (req, res) => {
   const send = req.body.send;
@@ -291,6 +293,33 @@ exports.getChat = (req, res) => {
     //   status: "success",
     //   data: `Reservasi anda berhasil dibatalkan! Selamat datang di Muara Ciante Adventure, saya chat bot yang akan membantu kalian dalam proses reservasi! /start (menampilkan pilihan menu) /reservasi (memesan paket yang tersedia) /lihatpaket(menampilkan menu paket) /cekjadwal (cek jadwal tersedia)`
     // });
+  } else if (isBase64(send, { mimeRequired: true })) {
+    console.log("woii")
+
+    base64Img.img(send, './public/images', Date.now(), async (err, filepath) => {
+      if (err) return res.status(400).json({
+        status: 'error',
+        message: err.message
+      });
+
+      const filename = filepath.split("\\").pop().split("/").pop();
+
+      try {
+        conn.query("UPDATE reservasi SET bukti_pembayaran = ? WHERE id = ?", [filename, 33], (err, data) => {
+          if (err) return res.status(500).json({
+            status: 'error',
+            message: err
+          })
+        });
+
+        return res.status(200).json({
+          status: "success",
+          data: 'Terimakasih banyak. Reservasi anda akan segera kami proses.'
+        });
+      } catch (error) {
+        console.log(error)
+      }
+    })
   } else {
     conn.query(
       "SELECT * FROM chat WHERE send LIKE CONCAT('%', ?, '%') ",

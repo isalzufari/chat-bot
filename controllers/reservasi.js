@@ -58,7 +58,7 @@ exports.getDetailReservasi = (req, res) => {
   console.log(id)
 
   try {
-    conn.query("SELECT reservasi.nama, reservasi.alamat, reservasi.total_pembayaran, reservasi.status_pembayaran, paket.nama as nama_paket, paket.jarak, paket.waktu, paket.tarif, DATE_FORMAT(jadwal.jadwal, '%Y-%m-%d %H:%i:%s') AS jadwal FROM reservasi INNER JOIN paket ON reservasi.id_paket = paket.id INNER JOIN jadwal ON reservasi.id_jadwal = jadwal.id WHERE reservasi.id = ?", [id], (err, reservasi) => {
+    conn.query("SELECT reservasi.nama, reservasi.alamat, reservasi.total_pembayaran, reservasi.status_pembayaran, reservasi.bukti_pembayaran, paket.nama as nama_paket, paket.jarak, paket.waktu, paket.tarif, DATE_FORMAT(jadwal.jadwal, '%Y-%m-%d %H:%i:%s') AS jadwal FROM reservasi INNER JOIN paket ON reservasi.id_paket = paket.id INNER JOIN jadwal ON reservasi.id_jadwal = jadwal.id WHERE reservasi.id = ?", [id], (err, reservasi) => {
       if (err) return res.status(500).json({
         status: 'error',
         message: err
@@ -85,6 +85,26 @@ exports.getDetailReservasi = (req, res) => {
           data: mergedArray
         });
       });
+    });
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+exports.changeStatusPayment = (req, res) => {
+  const id = req.params.id;
+
+  try {
+    conn.query("UPDATE reservasi SET status_pembayaran = 1 WHERE id = ?", [id], (err, data) => {
+      if (err) return res.status(500).json({
+        status: 'error',
+        message: err
+      })
+    });
+
+    return res.status(200).json({
+      status: "success",
+      data: 'Status pembayaran berhasil diubah.'
     });
   } catch (error) {
     console.log(error)
