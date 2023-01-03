@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import './chat.css'
 import { convertMinutesToHours } from '../Utils/utils'
+import { BsUpload } from 'react-icons/bs';
 
 const Chat = () => {
   const [formData, setFormData] = useState({
@@ -38,6 +39,39 @@ const Chat = () => {
       console.log(error)
     }
   }
+
+  const handeUploadImage = async (e) => {
+    console.log(e);
+    const file = e.target.files[0];
+    const base64Image = await toBase64(file);
+
+    try {
+      const response = await fetch("http://localhost:3001/chat", {
+        method: 'POST',
+        headers: {
+          'Accept': '*/*',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ "send": base64Image })
+      });
+
+      const receive = await response.json();
+
+      setDataChat([...dataChat, {
+        send: "Uploaded Image",
+        receive: receive,
+      }]);
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const toBase64 = (file) => new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = error => reject(error);
+  });
 
   return (
     <div className="container content">
@@ -141,6 +175,15 @@ const Chat = () => {
             <div class="input-group mb-3" style={{ padding: '0px 14px' }}>
               <input type="text" class="form-control" value={formData.send} onChange={(e) => setFormData({ ...formData, send: e.target.value })} placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="basic-addon2" />
               <button type='button' className="btn btn-primary input-group-text" id="basic-addon2" onClick={handleSend} disabled={!formData.send}>Kirim</button>
+              <span class="btn btn-primary btn-file">
+                <BsUpload style={{ fontSize: 16 }} />
+                <input
+                  id="uploadImage"
+                  type="file"
+                  inputprops={{ accept: 'image/*' }}
+                  onChange={e => handeUploadImage(e)}
+                />
+              </span>
             </div>
           </div>
         </div>

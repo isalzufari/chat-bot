@@ -19,7 +19,16 @@ const Reservasi = () => {
   }, []);
 
   const changePayment = () => {
-    console.log("Bayar")
+    fetch(`http://localhost:3001/reserved/detail/${id}/payment`, {
+      method: 'PUT'
+    })
+      .then(res => res.json())
+      .then(res => {
+        console.log(res.data);
+        if (res.status === "success") {
+          alert("Berhasil diubah!")
+        }
+      })
   }
 
   return (
@@ -51,7 +60,7 @@ const Reservasi = () => {
           <div className="card">
             <div className="card-body">
               <h5>Bukti Pembayaran</h5>
-
+              <img src={"http://localhost:3001/images/" + detailReservasi.bukti_pembayaran} class="img-fluid" alt=""></img>
             </div>
           </div>
         </div>
