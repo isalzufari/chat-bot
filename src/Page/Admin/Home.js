@@ -121,7 +121,7 @@ const Home = () => {
             </div>
           </div>
         </div>
-        <div className="col-12 col-md-6">
+        <div className="col-12 col-md-6 mt-3">
           <div className="card">
             <div className="card-body">
               <h5>Paket</h5>
