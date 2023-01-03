@@ -1,6 +1,5 @@
 const conn = require("../config/db");
 
-
 exports.getPaket = (req, res) => {
   try {
     conn.query("SELECT * FROM paket", (err, data) => {

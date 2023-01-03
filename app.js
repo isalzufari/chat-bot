@@ -8,6 +8,7 @@ const indexRouter = require('./routes/index');
 const chatRouter = require('./routes/chat');
 const reservasiRouter = require('./routes/reservasi');
 const paketRouter = require('./routes/paket');
+const jadwalRouter = require('./routes/jadwal');
 
 const app = express();
 const cors = require('cors');
@@ -34,6 +35,7 @@ app.use('/', indexRouter);
 app.use('/chat', chatRouter);
 app.use('/reserved', reservasiRouter);
 app.use('/paket', paketRouter);
+app.use('/jadwal', jadwalRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

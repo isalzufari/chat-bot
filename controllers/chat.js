@@ -249,13 +249,13 @@ exports.getChat = (req, res) => {
       } else {
         return res.status(200).json({
           status: "success",
-          data: `Masukkan data nama, alamat dan paket sesuai dengan format: /reservasi#atasnama#nama#alamat#kodepaket.namapaket Contoh: /reservasi#atasnama#Wahyu ward#Jakarta#1.Cihuy Atau batalkan reservasi dengan input /batalreservasi Jika masukan salah, Maka bot akan mengirim ulang pesan masukan data reservasi atas data nama, alamat dan paket`
+          data: `Masukkan data nama, alamat dan paket sesuai dengan format: /reservasi#atasnama#nama#alamat#kodepaket.namapaket#kodejadwal Contoh: /reservasi#atasnama#Wahyu ward#Jakarta#1.Cihuy#1 Atau batalkan reservasi dengan input /batalreservasi Jika masukan salah, Maka bot akan mengirim ulang pesan masukan data reservasi atas data nama, alamat dan paket`
         });
       }
     } else {
       return res.status(200).json({
         status: "success",
-        data: `Masukkan data nama, alamat dan paket sesuai dengan format: /reservasi#atasnama#nama#alamat#kodepaket.namapaket Contoh: /reservasi#atasnama#Wahyu ward#Jakarta#1.Cihuy Atau batalkan reservasi dengan input /batalreservasi Jika masukan salah, Maka bot akan mengirim ulang pesan masukan data reservasi atas data nama, alamat dan paket`
+        data: `Masukkan data nama, alamat dan paket sesuai dengan format: /reservasi#atasnama#nama#alamat#kodepaket.namapaket#kodejadwal Contoh: /reservasi#atasnama#Wahyu ward#Jakarta#1.Cihuy#1 Atau batalkan reservasi dengan input /batalreservasi Jika masukan salah, Maka bot akan mengirim ulang pesan masukan data reservasi atas data nama, alamat dan paket`
       });
     }
   } else if (send === "/batalreservasi") {
