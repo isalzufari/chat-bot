@@ -7,6 +7,7 @@ exports.getChat = (req, res) => {
   globalThis.id_reservasi;
   globalThis.nama_reservasi;
   globalThis.alamat_reservasi;
+  globalThis.id_jadwal_global;
 
   globalThis.nama_paket;
   globalThis.jarak_paket;
@@ -59,7 +60,7 @@ exports.getChat = (req, res) => {
       const jadwal = data[1];
       const id_paket = data[1].split(".")[0];
       console.log(jadwal);
-      conn.query("SELECT * FROM jadwal WHERE id_paket = ?", [id_paket], (err, data) => {
+      conn.query("SELECT id, DATE_FORMAT(jadwal, '%Y-%m-%d %H:%i:%s') AS jadwal, status FROM jadwal WHERE id_paket = ?", [id_paket], (err, data) => {
         if (err) return res.status(500).json({
           status: 'error',
           message: err
@@ -174,9 +175,11 @@ exports.getChat = (req, res) => {
       const nama = data[2];
       const alamat = data[3];
       const id_paket = data[4].split(".")[0];
+      const id_jadwal = data[5].split(".")[0];
 
       nama_reservasi = nama; // Atas Nama Reservasi (Info /batalreservasi)
       alamat_reservasi = alamat; // Review
+      id_jadwal_global = id_jadwal;
 
       if (nama && alamat && id_paket) {
 
@@ -197,23 +200,49 @@ exports.getChat = (req, res) => {
             waktu_paket = data[0].waktu;
             tarif_paket = data[0].tarif;
 
-            const values = [id_paket, nama, alamat];
-            conn.query("INSERT INTO reservasi (id_paket, nama, alamat) VALUES(?)", [values], (err, data) => {
+            conn.query("SELECT * FROM jadwal WHERE id = ?", [id_jadwal], (err, jadwal) => {
               if (err) return res.status(500).json({
                 status: 'error',
                 message: err
-              })
+              });
 
-              if (!err) {
-                conn.query("SELECT LAST_INSERT_ID() AS id", (err, data) => {
-                  id_reservasi = data[0].id;
+              if (jadwal.length === 0) {
+                return res.status(200).json({
+                  status: "success",
+                  data: `Jadwal tidak tersedia!`
+                });
+              } else if (jadwal[0].status === 1) {
+                return res.status(200).json({
+                  status: "success",
+                  data: `Jadwal sudah booked!`
+                });
+              } else {
+                const values = [id_paket, id_jadwal, nama, alamat, 0];
+                conn.query("INSERT INTO reservasi (id_paket, id_jadwal, nama, alamat, status_pembayaran ) VALUES(?)", [values], (err, data) => {
+                  if (err) return res.status(500).json({
+                    status: 'error',
+                    message: err
+                  })
+
+                  if (!err) {
+                    conn.query("SELECT LAST_INSERT_ID() AS id", (err, data) => {
+                      id_reservasi = data[0].id;
+                    });
+
+                    conn.query("UPDATE jadwal SET status = 1 WHERE id = ?", [id_jadwal], (err, data) => {
+                      if (err) return res.status(500).json({
+                        status: 'error',
+                        message: err
+                      })
+                    });
+                  }
+
+                  return res.status(200).json({
+                    status: "success",
+                    data: `Status: Reserved. Silahkan input data kelompok minimal 3 orang dengan format:/reservasi#kelompok#nama#tempat_lahir#tanggal_lahir Contoh: /reservasi#kelompok#Wahyu#Bogor#1999-06-21#Zafira#Depok#2000-01-06#Ijul#Bogor#1998-07-17 Atau batalkan reservasi dengan input /batalreservasi Jika masukan tidak sesuai, maka bot akan mengirim kembali notifikasi masukan data peserta`
+                  });
                 });
               }
-
-              return res.status(200).json({
-                status: "success",
-                data: `Status: Reserved. Silahkan input data kelompok minimal 3 orang dengan format:/reservasi#kelompok#nama#tempat_lahir#tanggal_lahir Contoh: /reservasi#kelompok#Wahyu#Bogor#1999-06-21#Zafira#Depok#2000-01-06#Ijul#Bogor#1998-07-17 Atau batalkan reservasi dengan input /batalreservasi Jika masukan tidak sesuai, maka bot akan mengirim kembali notifikasi masukan data peserta`
-              });
             });
           }
         })
@@ -229,7 +258,6 @@ exports.getChat = (req, res) => {
         data: `Masukkan data nama, alamat dan paket sesuai dengan format: /reservasi#atasnama#nama#alamat#kodepaket.namapaket Contoh: /reservasi#atasnama#Wahyu ward#Jakarta#1.Cihuy Atau batalkan reservasi dengan input /batalreservasi Jika masukan salah, Maka bot akan mengirim ulang pesan masukan data reservasi atas data nama, alamat dan paket`
       });
     }
-
   } else if (send === "/batalreservasi") {
     try {
       conn.query("DELETE FROM reservasi WHERE id=?", [id_reservasi], (err, data) => {
@@ -237,6 +265,15 @@ exports.getChat = (req, res) => {
           status: 'error',
           message: err
         });
+
+        if (!err) {
+          conn.query("UPDATE jadwal SET status = 0 WHERE id = ?", [id_jadwal_global], (err, data) => {
+            if (err) return res.status(500).json({
+              status: 'error',
+              message: err
+            })
+          });
+        }
 
         return res.status(200).json({
           status: "success",
