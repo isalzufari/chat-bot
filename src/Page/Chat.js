@@ -64,32 +64,62 @@ const Chat = () => {
                       </li>}
 
                       {Array.isArray(val.receive.data) ?
-                        <li className="in">
-                          <div className="chat-img">
-                            <img alt="Avtar" src="https://bootdey.com/img/Content/avatar/avatar1.png" />
-                          </div>
-                          <div className="chat-body">
-                            <div className="chat-message">
-                              <h5>Bot</h5>
-                              {val.receive.data.map((paket, key) => (
-                                <>
-                                  <h6 key={key}>Paket {paket.id}</h6>
-                                  <ul>
-                                    <li>Nama: {paket.nama}</li>
-                                    <li>Jarak : {paket.jarak} Km - {convertMinutesToHours(paket.waktu)} Jam</li>
-                                    <li>Fasilitas:</li>
-                                    {Array.isArray(paket.fasilitas) &&
-                                      paket.fasilitas.map((fasilitas, key) => (
-                                        <li>{key + 1}. {fasilitas}</li>
-                                      ))
-                                    }
-                                    <li>Tarif: {paket.tarif}</li>
-                                  </ul>
-                                </>
-                              ))}
-                            </div>
-                          </div>
-                        </li>
+                        <>
+                          {val.receive.data[0].jadwal ?
+                            <li className="in">
+                              <div className="chat-img">
+                                <img alt="Avtar" src="https://bootdey.com/img/Content/avatar/avatar1.png" />
+                              </div>
+                              <div className="chat-body">
+                                <div className="chat-message">
+                                  <h5>Bot</h5>
+                                  <div className="card p-3 mt-3">
+                                    <div className="row">
+                                      {val.receive.data.map((jadwal, key) => (
+                                        <div style={{ marginBottom: 12 }} className="col-6 col-md-3">
+                                          <div key={key} className={`card ${jadwal.status === 1 ? 'text-bg-secondary' : 'text-bg-light'}`}>
+                                            <div className="card-body">
+                                              <h6>Jadwal: {jadwal.id}</h6>
+                                              <p>{jadwal.jadwal}</p>
+                                              <p>{jadwal.status === 1 ? "Booked" : "Ready"}</p>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      ))}
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </li>
+                            :
+                            <li className="in">
+                              <div className="chat-img">
+                                <img alt="Avtar" src="https://bootdey.com/img/Content/avatar/avatar1.png" />
+                              </div>
+                              <div className="chat-body">
+                                <div className="chat-message">
+                                  <h5>Bot</h5>
+                                  {val.receive.data.map((paket, key) => (
+                                    <>
+                                      <h6 key={key}>Paket {paket.id}</h6>
+                                      <ul>
+                                        <li>Nama: {paket.nama}</li>
+                                        <li>Jarak : {paket.jarak} Km - {convertMinutesToHours(paket.waktu)} Jam</li>
+                                        <li>Fasilitas:</li>
+                                        {Array.isArray(paket.fasilitas) &&
+                                          paket.fasilitas.map((fasilitas, key) => (
+                                            <li>{key + 1}. {fasilitas}</li>
+                                          ))
+                                        }
+                                        <li>Tarif: {paket.tarif}</li>
+                                      </ul>
+                                    </>
+                                  ))}
+                                </div>
+                              </div>
+                            </li>
+                          }
+                        </>
                         :
                         <li className="in">
                           <div className="chat-img">
@@ -115,7 +145,7 @@ const Chat = () => {
           </div>
         </div>
       </div>
-    </div>
+    </div >
   )
 }
 
