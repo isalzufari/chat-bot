@@ -1,4 +1,4 @@
-p{
+.p{
     text-align: start;
 }
 
@@ -94,7 +94,7 @@ p{
 }
 
 .single-blog:hover .blog-content {
-    background-color: #754ef9; 
+    background-color: orange; 
 }
 
 .single-blog:hover .blog-content .blog-title a {
@@ -105,6 +105,25 @@ p{
     color: #fff; 
 }
 
-col svg {
+h2 svg {
     text-align: center;
+    font-size: 100px;
+    color: orange;
+}
+h2 {
+    padding-bottom: 10px;
+ }
+
+li.list-group-item {
+    font-weight: bold;
+    font-size: 15px;
+    color: orange;
+    text-decoration: none;
+}
+
+li {
+    font-weight: 650;
+    font-size: 15px;
+    margin-right: 15px;
+    margin-top: 5px;
 }
