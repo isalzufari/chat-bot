@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import { toRupiah } from '../../Utils/utils';
 
 const Reservasi = () => {
@@ -41,7 +41,7 @@ const Reservasi = () => {
               <h4>Nama: {detailReservasi.nama}</h4>
               <p>Alamat: {detailReservasi.alamat}</p>
               <p>Total Pembayaran: {toRupiah(detailReservasi.total_pembayaran)}</p>
-              <p>Status Pembayaran: {detailReservasi.status_pembayaran ? "Sudah" : "Belum"} Bayar</p>
+              <p>Status Pembayaran: {detailReservasi.status_pembayaran ? <span class="badge rounded-pill text-bg-success">Sudah</span> : <span class="badge rounded-pill text-bg-warning">Belum</span>} Bayar</p>
               <button onClick={() => changePayment()} className="btn btn-primary">Ubah Status</button>
             </div>
           </div>
@@ -53,6 +53,8 @@ const Reservasi = () => {
               <p>Jarak: {detailReservasi.jarak} Km</p>
               <p>Waktu: {detailReservasi.waktu} Menit</p>
               <p>Tarif: {toRupiah(detailReservasi.tarif)}</p>
+              <p>Jadwal: <span class="badge rounded-pill text-bg-info">{detailReservasi.jadwal}</span> / {detailReservasi.id_jadwal}</p>
+              <Link to="/admin/jadwal/1" className='btn btn-primary'>Lihat Jadwal</Link>
             </div>
           </div>
         </div>

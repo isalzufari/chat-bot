@@ -127,7 +127,6 @@ const Home = () => {
           <div className="card">
             <div className="card-body">
               <h5>Paket</h5>
-              <Link to="paket">Tambah</Link>
               <div className="table-responsive">
                 <table class="table table-hover">
                   <thead>

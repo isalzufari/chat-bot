@@ -21,6 +21,9 @@ const Navbar = () => {
               {splitLocation[1] === "admin" ?
                 <>
                   <li class="nav-item">
+                    <Link to="admin" class="nav-link">Utama</Link>
+                  </li>
+                  <li class="nav-item">
                     <Link to="admin/paket" class="nav-link">Paket</Link>
                   </li>
                 </>

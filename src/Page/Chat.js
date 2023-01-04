@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import './chat.css'
-import { convertMinutesToHours } from '../Utils/utils'
+import { convertMinutesToHours, toRupiah } from '../Utils/utils'
 import { BsUpload } from 'react-icons/bs';
 
 const Chat = () => {
@@ -145,7 +145,7 @@ const Chat = () => {
                                             <li>{key + 1}. {fasilitas}</li>
                                           ))
                                         }
-                                        <li>Tarif: {paket.tarif}</li>
+                                        <li>Tarif: {toRupiah(paket.tarif)}</li>
                                       </ul>
                                     </>
                                   ))}
