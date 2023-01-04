@@ -99,18 +99,19 @@ const Paket = () => {
         <label class="form-label">Tarif</label>
         <input onChange={(e) => setPaket({ ...paket, tarif: e.target.value })} type="number" class="form-control" placeholder="100000" value={paket.tarif} />
       </div>
-
-      {fasilitas.map((val, key) => {
-        return (
-          <div class="input-group mb-3" style={{ padding: '0px 14px' }} key={key}>
-            <input type="text" class="form-control" placeholder="Fasilitas" aria-label="Recipient's username" aria-describedby="basic-addon2" value={fasilitas[key].value} onChange={(e) => onUpdateValue(e.target.value, val.id, key)} />
-            {val.value &&
-              <button disabled={key > 1} type='button' className="btn btn-primary input-group-text" id="basic-addon2" onClick={() => setFasilitas([...fasilitas, { id: fasilitas.length + 1, value: "" }])}>Tambah</button>
-            }
-          </div>
-        )
-      })}
-
+      <div class="col-12">
+        <label class="form-label">Fasilitas</label>
+        {fasilitas.map((val, key) => {
+          return (
+            <div class="input-group mb-3" style={{ padding: '0px 14px' }} key={key}>
+              <input type="text" class="form-control" placeholder="Fasilitas" aria-label="Recipient's username" aria-describedby="basic-addon2" value={fasilitas[key].value} onChange={(e) => onUpdateValue(e.target.value, val.id, key)} />
+              {val.value &&
+                <button disabled={key > 1} type='button' className="btn btn-primary input-group-text" id="basic-addon2" onClick={() => setFasilitas([...fasilitas, { id: fasilitas.length + 1, value: "" }])}>Tambah</button>
+              }
+            </div>
+          )
+        })}
+      </div>
       <div class="col-12">
         <button onClick={onSaveData} type="button" class="btn btn-primary">Simpan</button>
       </div>

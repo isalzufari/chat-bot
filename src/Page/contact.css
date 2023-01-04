@@ -3,7 +3,7 @@ h1{
     padding-bottom: 0;
 }
 
-p{
+p.id {
     text-align: center;
     justify-content: space-between;
 }

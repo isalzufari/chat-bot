@@ -72,6 +72,7 @@ const Home = () => {
                       <th scope="col">Alamat</th>
                       <th scope="col">Total Pembayaran</th>
                       <th scope="col">Status Pembayaran</th>
+                      <th scope="col">Detail</th>
                       <th scope="col">Action</th>
                     </tr>
                   </thead>
@@ -83,6 +84,7 @@ const Home = () => {
                         <td>{val.alamat}</td>
                         <td>{toRupiah(val.total_pembayaran)}</td>
                         <td>{val.status_pembayaran > 0 ? "Sudah" : "Belum"}</td>
+                        <td><Link to={`reservasi/${val.id}`} type='button' className='btn btn-primary'>Detail</Link></td>
                         <td><button onClick={() => deleteUsersReserved(val.id)} type='button' className='btn btn-danger'>Hapus</button></td>
                       </tr>
                     ))}
@@ -121,11 +123,10 @@ const Home = () => {
             </div>
           </div>
         </div>
-        <div className="col-12 col-md-6">
+        <div className="col-12 col-md-6 mt-3">
           <div className="card">
             <div className="card-body">
               <h5>Paket</h5>
-              <Link to="paket">Tambah</Link>
               <div className="table-responsive">
                 <table class="table table-hover">
                   <thead>
@@ -136,6 +137,7 @@ const Home = () => {
                       <th scope="col">Waktu</th>
                       <th scope="col">Tarif</th>
                       <th scope="col">Action</th>
+                      <th scope="col">Jadwal</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -146,7 +148,12 @@ const Home = () => {
                         <td>{val.jarak} Km</td>
                         <td>{val.waktu} Menit</td>
                         <td>{toRupiah(val.tarif)}</td>
-                        <td><button onClick={() => deletePaket(val.id)} type='button' className='btn btn-danger'>Hapus</button></td>
+                        <td>
+                          <button onClick={() => deletePaket(val.id)} type='button' className='btn btn-danger'>Hapus</button>
+                        </td>
+                        <td>
+                          <Link to={`jadwal/${val.id}`} type='button' className='btn btn-primary'>Jadwal</Link>
+                        </td>
                       </tr>
                     ))}
                   </tbody>

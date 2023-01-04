@@ -5,7 +5,7 @@ import { GiSailboat } from 'react-icons/gi'
 import './service.css'
 
 const Services = () => {
-  return (
+    return (
 
     
   <section id="blog" class="blog-area pt-125 pb-130">

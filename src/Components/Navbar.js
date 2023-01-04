@@ -11,7 +11,7 @@ const Navbar = () => {
     <>
       <nav class="navbar navbar-expand-lg py-3 navbar-dark bg-warning text-white border-bottom">
         <div class="container-fluid">
-          <a class="navbar-brand" href="/"></a>
+          <a class="navbar-brand" href="/#"></a>
           <img src="assets/images/aset1 new.png " alt="Bootstrap" width="45" height="45"></img>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -20,6 +20,9 @@ const Navbar = () => {
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
               {splitLocation[1] === "admin" ?
                 <>
+                  <li class="nav-item">
+                    <Link to="admin" class="nav-link">Utama</Link>
+                  </li>
                   <li class="nav-item">
                     <Link to="admin/paket" class="nav-link">Paket</Link>
                   </li>

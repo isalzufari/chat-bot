@@ -19,6 +19,8 @@ import Chat from "./Page/Chat";
 import Login from "./Page/Admin/Login";
 import AdminHome from "./Page/Admin/Home";
 import Paket from "./Page/Admin/Paket";
+import Jadwal from "./Page/Admin/Jadwal";
+import Reservasi from "./Page/Admin/Reservasi";
 
 function App() {
   return (
@@ -36,6 +38,8 @@ function App() {
               <Route index element={<AdminHome />} />
               <Route path="login" element={<Login />} />
               <Route path="paket" element={<Paket />} />
+              <Route path="jadwal/:id" element={<Jadwal />} />
+              <Route path="reservasi/:id" element={<Reservasi />} />
             </Route>
           </Routes>
         </div>
