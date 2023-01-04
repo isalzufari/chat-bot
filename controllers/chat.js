@@ -256,7 +256,7 @@ exports.getChat = (req, res) => {
 
                   return res.status(200).json({
                     status: "success",
-                    data: `Status: Reserved. Silahkan input data kelompok minimal 3 orang dengan format:/reservasi#kelompok#nama#tempat_lahir#tanggal_lahir Contoh: /reservasi#kelompok#Wahyu#Bogor#1999-06-21#Zafira#Depok#2000-01-06#Ijul#Bogor#1998-07-17 Atau batalkan reservasi dengan input /batalreservasi Jika masukan tidak sesuai, maka bot akan mengirim kembali notifikasi masukan data peserta`
+                    data: `Status: Reserved. Silahkan input data kelompok maksimal 3 orang dengan format:/reservasi#kelompok#nama#tempat_lahir#tanggal_lahir Contoh: /reservasi#kelompok#Wahyu#Bogor#1999-06-21#Zafira#Depok#2000-01-06#Ijul#Bogor#1998-07-17 Atau batalkan reservasi dengan input /batalreservasi Jika masukan tidak sesuai, maka bot akan mengirim kembali notifikasi masukan data peserta`
                   });
                 });
               }
