@@ -76,9 +76,16 @@ exports.getChat = (req, res) => {
           message: err
         });
 
+        let result;
+        if (data.length === 0) {
+          result = "Jadwal tidak tersedia!"
+        } else {
+          result = data;
+        }
+
         return res.status(200).json({
           status: "success",
-          data: data
+          data: result
         });
       });
     } else {
