@@ -3,7 +3,7 @@ const conn = mysql.createConnection({
   host: 'localhost',
   user: 'root',
   password: '',
-  database: 'db_chat_reserved_backup'
+  database: 'db_chat_reserved'
 });
 
 conn.connect();

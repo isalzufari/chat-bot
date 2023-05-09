@@ -31,7 +31,7 @@ exports.getChat = (req, res) => {
   if (send === "/pesan") {
     return res.status(200).json({
       status: "success",
-      data: `Hallo! Selamat datang di Muara Ciante Adventure, saya chat bot yang akan membantu kalian dalam proses reservasi! /pesan (menampilkan pilihan menu) /reservasi (memesan paket yang tersedia) /lihatpaket (menampilkan menu paket) /cekjadwal (cek jadwal tersedia)`
+      data: `Hallo! Selamat datang di Muara Cianten Adventure, saya chat bot yang akan membantu kalian dalam proses reservasi! ketik /pesan (untuk menampilkan pilihan menu), Ketik /reservasi (untuk melakukan reservasi), Ketik /lihatpaket (untuk menampilkan menu paket), Ketik /cekjadwal (untuk cek jadwal tersedia) dan Ketik /batalreservasi (untuk membatalkan reservasi)`
     });
   } else if (send === "/lihatpaket") {
     conn.query("SELECT paket.id, paket.nama, paket.jarak, paket.waktu, paket.tarif, fasilitas.fasilitas FROM paket INNER JOIN fasilitas ON paket.id_fasilitas = fasilitas.id", (err, data) => {
@@ -294,7 +294,7 @@ exports.getChat = (req, res) => {
 
         return res.status(200).json({
           status: "success",
-          data: `Resevasi atas nama: ${nama_reservasi} Berhasil dihapus!`
+          data: `Resevasi atas nama: ${nama_reservasi} Berhasil dihapus! Ketik /pesan (untuk menampilkan pilihan menu)`
         });
       });
     } catch (error) {
